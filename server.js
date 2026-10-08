@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const app = express();
+app.disable('x-powered-by');
 
 app.use(session({ secret: 'demo-secret', resave: false, saveUninitialized: true }));
 
@@ -11,6 +12,7 @@ const accounts = {
 
 app.get('/login/:userId', (req, res) => {
   req.session.userId = req.params.userId;
+  res.set('Content-Type', 'text/plain');
   res.send('logged in as ' + req.params.userId);
 });
 
